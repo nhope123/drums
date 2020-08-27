@@ -1,3 +1,7 @@
+*{box-sizing: border-box;}
+:root{
+  --Player-grey: #1f2227;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +11,112 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#drum-machine{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  background-color: #99e6ff;
+  width: 100vw;
+  height: 100vh;
+}
+
+.player-container{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 30px) repeat(3, minmax(60px,1fr)) 50px;
+  grid-gap: 15px;
+  grid-template-areas: "tt tt tt tt tt tt tt tt tt tt tt tt"
+                       ". . tx tx tx tx tx tx tx tx . ."
+                       "bn bn bn bn bn bn bn bn bn bn vl vl"
+                       "bn bn bn bn bn bn bn bn bn bn vl vl"
+                       "bn bn bn bn bn bn bn bn bn bn vl vl"
+                       ". . pw pw pw . . sw sw sw cc cc";
+  width: 70%;
+  max-width: 750px;
+  border: 3px dashed var(--Player-grey);
+  /* background: #4d4d4d;
+  background: -moz-linear-gradient(top, #4d4d4d 0%, #1F2227 100%);
+  background: -webkit-linear-gradient(top, #4d4d4d 0%, #1F2227 100%);
+  background: linear-gradient(to bottom, #4d4d4d 0%, #1F2227 100%); */
+}
+#logo{
+  grid-area: tt;
+  border: 2px solid black;
+}
+#display{
+  grid-area: tx;
+  border: 2px solid blue;
+}
+#drum_buttoms{
+  grid-area: bn;
+  border: 2px solid red;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: "q w e" "a s d" "z x c";
+  grid-gap: 10px;
+
+
+}
+.drum-pad{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed brown;
+  margin: auto;
+  padding: 18px;
+  text-align: center;
+
+
+
+
+
+
+
+}
+.drum-pad span{
+  width: 15px;
+  height: 15px;
+  margin: auto;
+}
+
+ /* BUG: Volume slider need adjustments   */
+#volume{
+  grid-area: vl;
+  border: 2px solid green;
+  grid-template-columns:  repeat(4, 1fr);
+  grid-template-rows: 1fr 20px;
+  grid-template-areas:  "sl sl sl sl" "in";
+  justify-items: center;
+  align-items: center;
+
+}
+#vText{
+  grid-area: in;
+}
+#volume input{
+  width: 150%;
+  height: 40%;
+  border: 2px solid pink;
+  /*transform: rotate(100deg);*/
+  grid-area: sl;
+  display: block;
+}
+
+/* BUG: end */
+
+
+#power{
+  grid-area: pw;
+  border: 2px solid pink;
+}
+#fx{
+  grid-area: sw;
+  border: 2px solid pink;
+}
+#credits{
+  grid-area: cc;
+  border: 2px solid pink;
 }

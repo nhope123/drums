@@ -1,4 +1,4 @@
-# Efonic
+# efonic
 
 A Sound effect Drum machine
 
