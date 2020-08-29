@@ -5,24 +5,90 @@ import './index.css';
 class Buttons extends React.Component{
   constructor(props){
     super(props);
-  }
+    this.state={
+                fx:'1',
+                qSrc:'./audio/Heater-1.mp3'
 
+    };
+
+    this.playAudio = this.playAudio.bind(this);
+  }
+  playAudio(event){
+    var vic = document.getElementById(event.target.value);
+    //vic.load();
+    vic.play();
+  }
   render(){
 
     return(
       <section id='drum_buttoms'>
         {/* Row 1 with button Q W E */}
-        <div id='qButton' className='drum-pad'  onClick=''><span>Q</span></div>
-        <div id='wButton' className='drum-pad'  onClick=''>W</div>
-        <div id='eButton' className='drum-pad'  onClick=''>E</div>
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='qButton'>
+          <audio id='qButton' controls >
+          {/* // BUG: fix source */}
+            <source src={this.qSrc} type='audio/mp3' />
+            Your browser does not support the audio element.
+          </audio>
+          Q
+        </button>
+        <button type='button'  className='drum-pad'  onClick={this.playAudio} value='wButton'>
+          <audio id='wButton' controls >
+            <source src='./audio/click.mp3' type='audio/mp3' />
+            Your browser does not support the audio element.
+          </audio>
+          W
+        </button >
+        <button type='button' id='eButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          E
+        </button >
         {/* Row 2 with button A S D */}
-        <div id='aButton' className='drum-pad'  onClick=''>A</div>
-        <div id='sButton' className='drum-pad'  onClick=''>S</div>
-        <div id='dButton' className='drum-pad'  onClick=''>D</div>
+        <button type='button' id='aButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          A
+        </button >
+        <button type='button' id='sButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          S
+        </button >
+        <button type='button' id='dButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          D
+        </button >
         {/* Row 2 with button Z X C */}
-        <div id='zButton' className='drum-pad'  onClick=''>Z</div>
-        <div id='xButton' className='drum-pad'  onClick=''>X</div>
-        <div id='cButton' className='drum-pad'  onClick=''>C</div>
+        <button type='button' id='zButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          Z
+        </button >
+        <button type='button' id='xButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+          X
+        </button >
+        <button type='button' id='cButton' className='drum-pad'  onClick=''>
+          <audio >
+            <source src='' type='audio/wav' />
+            Your browser does not support the audio element.
+          </audio>
+        C
+        </button >
       </section>
     );
   }
