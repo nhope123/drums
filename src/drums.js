@@ -3,12 +3,28 @@ import './index.css';
 
 // First audio list
 const fx1 = {
-  qAudio: ['Heater-1.mp3','Heater 1'],
-  wAudio: Heater-2.mp3,Heater-3.mp3,Heater-4_1.mp3,Heater-6.mp3, Dsc_Oh.mp3', Kick_n_Hat.mp3, Chord_2.mp3, Chord_3.mp3']
-}
-
+  qAudio: ['./audio/Heater-1.mp3','Heater 1'],
+  wAudio: ['./audio/Heater-2.mp3','Heater 2'],
+  eAudio: ['./audio/Heater-3.mp3','Heaterv3'],
+  aAudio: ['./audio/Heater-4_1.mp3','Heater 4'],
+  sAudio: ['./audio/Heater-6.mp3','Heater 6'],
+  dAudio: ['./audio/Dsc_Oh.mp3', 'Dsc Oh'],
+  zAudio: ['./audio/Kick_n_Hat.mp3','Kick n Hat'],
+  xAudio: ['./audio/Chord_2.mp3','Chord 2'],
+  cAudio: ['./audio/Chord_3.mp3','Chord 3']
+};
 // Second audio list
-
+const fx2 = {
+  qAudio: ['tracker.mp3','Futuristic Ray'],
+  wAudio: ['TWINGY.mp3','Boing'],
+  eAudio: ['UPPER.mp3','Quick Whistle'],
+  aAudio: ['TINK.mp3','Quick Beep'],
+  sAudio: ['PLINK.mp3','Plink'],
+  dAudio: ['POP.mp3', 'Pop'],
+  zAudio: ['swish.mp3','Swish'],
+  xAudio: ['Give_us_a_light.mp3','Give us a light'],
+  cAudio: ['Chord_1.mp3','Chord 1']
+};
 
 
 // Drum machine Button Component emplimenting the button functionality
@@ -17,7 +33,12 @@ class Buttons extends React.Component{
     super(props);
     this.state={
                 fx:'1',
-                qSrc:'./audio/Heater-1.mp3'
+                qSrc:'./audio/Heater-1.mp3', wSrc:'./audio/Heater-2.mp3',
+                eSrc: './audio/Heater-3.mp3', aSrc: './audio/Heater-4_1.mp3',
+                sSrc: './audio/Heater-6.mp3', dSrc: './audio/Dsc_Oh.mp3',
+                zSrc: './audio/Kick_n_Hat.mp3', xSrc: './audio/Chord_2.mp3',
+                cSrc: './audio/Chord_3.mp3'
+
 
     };
 
@@ -34,67 +55,67 @@ class Buttons extends React.Component{
       <section id='drum_buttoms'>
         {/* Row 1 with button Q W E */}
         <button type='button' className='drum-pad'  onClick={this.playAudio} value='qButton'>
-          <audio id='qButton' controls >
+          <audio id='qButton'  >
           {/* // BUG: fix source */}
-            <source src='./audio/Cev_H2.mp3' type='audio/mp3' />
+            <source src={this.state.qSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           Q
         </button>
         <button type='button'  className='drum-pad'  onClick={this.playAudio} value='wButton'>
-          <audio id='wButton' controls >
-            <source src='./audio/click.mp3' type='audio/mp3' />
+          <audio id='wButton'  >
+            <source src={this.state.wSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           W
         </button >
-        <button type='button' id='eButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='eButton'>
+          <audio id='eButton'>
+            <source src={this.state.eSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           E
         </button >
         {/* Row 2 with button A S D */}
-        <button type='button' id='aButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='aButton'>
+          <audio id='aButton' >
+            <source src={this.state.aSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           A
         </button >
-        <button type='button' id='sButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='sButton'>
+          <audio id='sButton'>
+            <source src={this.state.sSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           S
         </button >
-        <button type='button' id='dButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='dButton'>
+          <audio id='dButton'>
+            <source src={this.state.dSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           D
         </button >
         {/* Row 2 with button Z X C */}
-        <button type='button' id='zButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='zButton'>
+          <audio id='zButton'>
+            <source src={this.state.zSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           Z
         </button >
-        <button type='button' id='xButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button'  className='drum-pad'  onClick={this.playAudio} value='xButton'>
+          <audio id='xButton'>
+            <source src={this.state.xSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           X
         </button >
-        <button type='button' id='cButton' className='drum-pad'  onClick=''>
-          <audio >
-            <source src='' type='audio/wav' />
+        <button type='button' className='drum-pad'  onClick={this.playAudio} value='cButton'>
+          <audio id='cButton'>
+            <source src={this.state.cSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
         C
@@ -132,8 +153,11 @@ const Power = ()=>{
 const Fx = ()=>{
   return(
     <div id='fx'>
-      <input type='checkbox'/>
-      <span ></span>
+      <input type='checkbox' id='fxSwitch'/>
+      <label for='fxSwitch' >
+        <span >On</span>
+        <span >Off</span>
+      </label>
       <div> Fx</div>
     </div>
   );
