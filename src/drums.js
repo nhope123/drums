@@ -16,15 +16,15 @@ const fx1 = {
 };
 // Second audio list
 const fx2 = {
-  qAudio: ['tracker.mp3','Futuristic Ray'],
-  wAudio: ['TWINGY.mp3','Boing'],
-  eAudio: ['UPPER.mp3','Quick Whistle'],
-  aAudio: ['TINK.mp3','Quick Beep'],
-  sAudio: ['PLINK.mp3','Plink'],
-  dAudio: ['POP.mp3', 'Pop'],
-  zAudio: ['swish.mp3','Swish'],
-  xAudio: ['Give_us_a_light.mp3','Give us a light'],
-  cAudio: ['Chord_1.mp3','Chord 1']
+  qAudio: ['./audio/tracker.mp3','Futuristic Ray'],
+  wAudio: ['./audio/TWINGY.mp3','Boing'],
+  eAudio: ['./audio/UPPER.mp3','Quick Whistle'],
+  aAudio: ['./audio/TINK.mp3','Quick Beep'],
+  sAudio: ['./audio/PLINK.mp3','Plink'],
+  dAudio: ['./audio/POP.mp3', 'Pop'],
+  zAudio: ['./audio/swish.mp3','Swish'],
+  xAudio: ['./audio/Give_us_a_light.mp3','Give us a light'],
+  cAudio: ['./audio/Chord_1.mp3','Chord 1']
 };
 
 
@@ -33,7 +33,7 @@ class Buttons extends React.Component{
   constructor(props){
     super(props);
     this.state={
-                qSrc: this.props.tracks.qAudio, wSrc:this.props.tracks.wAudio,
+                qSrc: this.props.tracks.qAudio[0], wSrc: this.props.tracks.wAudio,
                 eSrc: this.props.tracks.eAudio, aSrc: this.props.tracks.aAudio,
                 sSrc: this.props.tracks.sAudio, dSrc: this.props.tracks.dAudio,
                 zSrc: this.props.tracks.zAudio, xSrc: this.props.tracks.xAudio,
@@ -123,6 +123,7 @@ class Buttons extends React.Component{
   render(){
     window.addEventListener('keypress', this.playAudio);
 
+    console.log(this.props.tracks);
 
 
 
@@ -132,7 +133,7 @@ class Buttons extends React.Component{
         <button type='button' className='drum-pad'  onClick={this.playAudio} value='qButton'  onKeyPress={this.playAudio}>
           <audio id='qButton'  >
           {/* // BUG: fix source */}
-            <source src={this.state.qSrc[0]} type='audio/mp3' />
+            <source src={this.state.qSrc} type='audio/mp3' />
             Your browser does not support the audio element.
           </audio>
           Q
@@ -249,12 +250,12 @@ class Fx extends React.Component{
   }
   render(){
 
-    document.addEventListener('change', this.switching );
+    //document.addEventListener('change', this.switching );
     return(
       <div id='fx'>
         <label for='fxSwitch' className='switch'  >
           <input type='checkbox' id='fxSwitch'  />
-          <span className='slider round on'>On</span>
+          <span className='slider round on' onClick={this.switching}>On</span>
           {/* <span className='slider round off'>Off</span> */}
         </label>
         <div> Fx</div>
@@ -283,7 +284,7 @@ export class Drums extends React.Component{
   }
 
   render(){
-    console.log(this.state.fxBatch);
+    //console.log(this.state.fxBatch);
     var buttonProps = {setDisplay: this.setDisplay, tracks: {...this.state.fxBatch}};
     return(
       <div className="player-container">{/* Container with player elemants */}
