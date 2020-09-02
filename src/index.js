@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import * as drums from './drums.js';
 
 ReactDOM.render(
-  <div>slf</div>,
-  document.getElementById('root')
+  <drums.Drums/>,
+  document.getElementById('drum-machine')
 );
