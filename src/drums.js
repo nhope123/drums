@@ -16,32 +16,77 @@ const fx1 = {
 };
 // Second audio list
 const fx2 = {
-  qAudio: ['./audio/tracker.mp3','Futuristic Ray'],
+  qAudio: ['./audio/TRACKER.mp3','Futuristic Ray'],
   wAudio: ['./audio/TWINGY.mp3','Boing'],
   eAudio: ['./audio/UPPER.mp3','Quick Whistle'],
   aAudio: ['./audio/TINK.mp3','Quick Beep'],
   sAudio: ['./audio/PLINK.mp3','Plink'],
   dAudio: ['./audio/POP.mp3', 'Pop'],
-  zAudio: ['./audio/swish.mp3','Swish'],
+  zAudio: ['./audio/SWISH__1.mp3','Swish'],
   xAudio: ['./audio/Give_us_a_light.mp3','Give us a light'],
   cAudio: ['./audio/Chord_1.mp3','Chord 1']
 };
-
+// List of Button audio element ids
+const idList = ["qButton","wButton","eButton",
+                "aButton","sButton","dButton",
+                "zButton","xButton","cButton"];
 
 // Drum machine Button Component emplimenting the button functionality
 class Buttons extends React.Component{
   constructor(props){
     super(props);
     this.state={
-                qSrc: this.props.tracks.qAudio[0], wSrc: this.props.tracks.wAudio,
-                eSrc: this.props.tracks.eAudio, aSrc: this.props.tracks.aAudio,
-                sSrc: this.props.tracks.sAudio, dSrc: this.props.tracks.dAudio,
-                zSrc: this.props.tracks.zAudio, xSrc: this.props.tracks.xAudio,
-                cSrc: this.props.tracks.cAudio
+                qSrc: fx1.qAudio, wSrc: fx1.wAudio, eSrc: fx1.eAudio,
+                aSrc: fx1.aAudio, sSrc: fx1.sAudio, dSrc: fx1.dAudio,
+                zSrc: fx1.zAudio, xSrc: fx1.xAudio, cSrc: fx1.cAudio,
+                loop: false
     };
     this.playAudio = this.playAudio.bind(this);
+    this.setTracks = this.setTracks.bind(this);
+    this.muteAudio = this.muteAudio.bind(this);
+    this.setVolume = this.setVolume.bind(this);
+    this.setLoop = this.setLoop.bind(this);
   }
-
+  // Set the values for the audio elements loop attribute
+  setLoop(event){
+    var element = document.getElementById(event.target.value);
+    if (element.hasAttribute('loop') === false) {
+      element.setAttribute('loop','true');
+      event.currentTarget.classList.add('active-loop');
+    } else {
+      element.removeAttribute('loop');
+      event.currentTarget.classList.remove('active-loop');
+    }
+  }
+  // Set the values for the button tracks
+  setTracks(val){
+    this.setState({
+                    qSrc: val.qAudio, wSrc: val.wAudio, eSrc: val.eAudio,
+                    aSrc: val.aAudio, sSrc: val.sAudio, dSrc: val.dAudio,
+                    zSrc: val.zAudio, xSrc: val.xAudio, cSrc: val.cAudio
+    });
+    // Reload all audio buttons when new track are loaded
+    idList.map((item) => { document.getElementById(item).load(); return 1;});
+  }
+  // set the volume of all audio elements
+  setVolume(val){
+    // Set volumeof all audio elements to val
+    idList.map((item) => { document.getElementById(item).volume = val; return 1;});
+  }
+  // muteAudio function toogle the muted attribute for all audio elements
+  muteAudio(val){
+    if (val === true) {
+      idList.map((item) => {
+        document.getElementById(item).muted = true;
+        return 1;
+      });
+    } else {
+      idList.map((item) => {
+        document.getElementById(item).muted = false;
+        return 1;
+      });
+    }
+  }
   // playAudio function plays selected audio and pass the track title for display
   playAudio(event){
     var eventValue; // Value from the button pressed
@@ -53,31 +98,31 @@ class Buttons extends React.Component{
     if (event.type === 'keypress') {
       switch (event.charCode) {
         case 113:   // key Q
-          eventValue= 'qButton';
+          eventValue= idList[0];
           break;
         case 119:   // key W
-          eventValue= 'wButton';
+          eventValue=  idList[1] ;
           break;
         case 101:   // key E
-          eventValue= 'eButton';
+          eventValue= idList[2] ;
           break;
         case 97:    // key A
-          eventValue= 'aButton';
+          eventValue= idList[3] ;
           break;
         case 115:   // key S
-          eventValue= 'sButton';
+          eventValue= idList[4] ;
           break;
         case 100:   // key D
-          eventValue= 'dButton';
+          eventValue= idList[5] ;
           break;
         case 122:   // key Z
-          eventValue= 'zButton';
+          eventValue= idList[6] ;
           break;
         case 120:   // key X
-          eventValue= 'xButton';
+          eventValue= idList[7] ;
           break;
         case 99:   // key C
-          eventValue= 'cButton';
+          eventValue= idList[8];
           break;
         default:  // If other key press do nothing
           eventValue='error';
@@ -87,145 +132,212 @@ class Buttons extends React.Component{
     // Assign track title text for display when track is played
     if (eventValue !== 'error') {
       switch (eventValue) {
-        case "qButton":
+        case  idList[0] :
           this.props.setDisplay(this.state.qSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "wButton":
+        case  idList[1] :
           this.props.setDisplay(this.state.wSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "eButton":
+        case  idList[2] :
           this.props.setDisplay(this.state.eSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "aButton":
+        case idList[3] :
           this.props.setDisplay(this.state.aSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "sButton":
+        case idList[4] :
           this.props.setDisplay(this.state.sSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "dButton":
+        case idList[5] :
           this.props.setDisplay(this.state.dSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "zButton":
+        case idList[6] :
           this.props.setDisplay(this.state.zSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "xButton":
+        case idList[7] :
           this.props.setDisplay(this.state.xSrc[1]);
+          document.getElementById(eventValue).play();
           break;
-        case "cButton":
+        case idList[8]:
           this.props.setDisplay(this.state.cSrc[1]);
+          document.getElementById(eventValue).play();
           break;
         default:
           break;
       }
-      document.getElementById(eventValue).play(); // Play audio for that button
+       // Play audio for that button
     }
   }
   render(){
     window.addEventListener('keypress', this.playAudio);
 
-    console.log(this.props.tracks);
-
-
-
     return(
       <section id='drum_buttoms'>
         {/* Row 1 with button Q W E */}
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='qButton'  onKeyPress={this.playAudio}>
-          <audio id='qButton'  >
-          {/* // BUG: fix source */}
-            <source src={this.state.qSrc} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          Q
-        </button>
-        <button type='button'  className='drum-pad'  onClick={this.playAudio} value='wButton'>
-          <audio id='wButton'  >
-            <source src={this.state.wSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          W
-        </button >
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='eButton'>
-          <audio id='eButton'>
-            <source src={this.state.eSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          E
-        </button >
+        <div id='qCon'>
+          {/* Q button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={ idList[0] }  onKeyPress={this.playAudio}>
+            <audio  id={ idList[0] } >
+            {/* // BUG: fix source */}
+              <source src={this.state.qSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            Q
+          </button>
+          <button type='button' className='left loop' onClick={this.setLoop} value={ idList[0] } >loop </button>
+        </div>
+        <div id='wCon'>
+          {/* W button */}
+          <button type='button'  className='drum-pad'  onClick={this.playAudio} value={idList[1]} >
+            <audio  id={idList[1]}   >
+              <source src={this.state.wSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            W
+          </button >
+          <button type='button' className='center loop' onClick={this.setLoop} value={idList[1]} >loop </button>
+        </div>
+        <div id='eCon'>
+          {/* E button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={idList[2] }>
+            <audio  id={idList[2] }>
+              <source src={this.state.eSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            E
+          </button >
+          <button type='button' className='right loop' onClick={this.setLoop} value={idList[2] } >loop </button>
+        </div>
         {/* Row 2 with button A S D */}
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='aButton'>
-          <audio id='aButton' >
-            <source src={this.state.aSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          A
-        </button >
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='sButton'>
-          <audio id='sButton'>
-            <source src={this.state.sSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          S
-        </button >
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='dButton'>
-          <audio id='dButton'>
-            <source src={this.state.dSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          D
-        </button >
+        <div id='aCon'>
+          {/* A button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={idList[3] }>
+            <audio  id={idList[3] } >
+              <source src={this.state.aSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            A
+          </button >
+          <button type='button' className='left loop' onClick={this.setLoop} value={idList[3] } >loop </button>
+        </div>
+        <div id='sCon'>
+          {/* S button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={idList[4] }>
+            <audio  id={idList[4] }>
+              <source src={this.state.sSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            S
+          </button >
+          <button type='button' className='center loop' onClick={this.setLoop} value={idList[4] } >loop </button>
+        </div>
+        <div id='dCon'>
+          {/* D button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={ idList[5] } >
+            <audio  id={ idList[5] } >
+              <source src={this.state.dSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            D
+          </button >
+          <button type='button' className='right loop' onClick={this.setLoop} value={ idList[5] } >loop </button>
+        </div>
         {/* Row 2 with button Z X C */}
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='zButton'>
-          <audio id='zButton'>
-            <source src={this.state.zSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          Z
-        </button >
-        <button type='button'  className='drum-pad'  onClick={this.playAudio} value='xButton'>
-          <audio id='xButton'>
-            <source src={this.state.xSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-          X
-        </button >
-        <button type='button' className='drum-pad'  onClick={this.playAudio} value='cButton'>
-          <audio id='cButton'>
-            <source src={this.state.cSrc[0]} type='audio/mp3' />
-            Your browser does not support the audio element.
-          </audio>
-        C
-        </button >
+        <div id='zCon'>
+          {/* Z button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={ idList[6] } >
+            <audio  id={ idList[6] } >
+              <source src={this.state.zSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            Z
+          </button >
+          <button type='button' className='left loop' onClick={this.setLoop}  value={ idList[6] } >loop </button>
+        </div>
+        <div id='xCon'>
+          {/* X button */}
+          <button type='button'  className='drum-pad'  onClick={this.playAudio} value={ idList[7] }>
+            <audio  id={ idList[7] }>
+              <source src={this.state.xSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+            X
+          </button >
+          <button type='button' className='center loop' onClick={this.setLoop}  value={ idList[7] } >loop </button>
+        </div>
+        <div id='cCon'>
+          {/* C button */}
+          <button type='button' className='drum-pad'  onClick={this.playAudio} value={ idList[8] }>
+            <audio  id={ idList[8] }>
+              <source src={this.state.cSrc[0]} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+          C
+          </button >
+          <button type='button' className='right loop' onClick={this.setLoop} value={ idList[8] } >loop </button>
+        </div>
       </section>
     );
   }
 
 }
 // Volume slider with functionality
-const Volume = (props)=>{
-  return(
-    <div id='volume'>
-      <input type='range' min='0' max='1.0' step='0.1' name='scale' />
-        <datalist id='scale'>
-          <option value='0'/>
+class Volume extends React.Component{
+  constructor(props){
+    super(props);
+    this.getVolume = this.getVolume.bind(this);
+  }
+  // Collect volume value from slider
+  getVolume(event){
+    this.props.passVolume(event.target.value);
+  }
+  render(){
+    return(
+      <div id='volume'>
+        <input type='range' min='0' max='1.0' step='0.1' name='scale' onChange={this.getVolume} list='levels' style={{
+          backgroundColor: 'red', color: 'black'
+        }}/>
+        <datalist id='levels'>
+          <option value='0' />
           <option value='0.5' />
-          <option value='1.0' />
+          <option value='1' />
         </datalist>
-      <div id='vText'>Volume</div>
-    </div>
-  );
+        <div id='vText'>Volume</div>
+      </div>
+    );
+  }
 }
 // Power toggle switch for audio activation and deactivation
-const Power = ()=>{
-  return(
-    <div id='power'>
-      <label className='switch' for='mute' >
-        <input type='checkbox' id='mute'/>
-        <span className='slider round' ></span>
-      </label>
-      <div> Power</div>
-    </div>
-  );
+class Power extends React.Component{
+  constructor(props){
+    super(props);
+    this.switchPower = this.switchPower.bind(this);
+  }
+  // Toogle the mute switch on/off
+  switchPower(){
+    var powerChoice = document.getElementById('mute');
+      // Power switch is checked mute all audio
+      if (powerChoice.checked) { this.props.setMute(false); }
+      // Power switch unchecked unmute all audio
+      else{ this.props.setMute(true); }
+  }
+  render(){
+    return(
+      <div id='power'>
+        <label className='switch' for='mute' >
+          <input type='checkbox' id='mute'/>
+          <span className='slider round' onClick={this.switchPower} ></span>
+        </label>
+        <div> Power</div>
+      </div>
+    );
+  }
 }
 // Select type of audio
 class Fx extends React.Component{
@@ -233,24 +345,15 @@ class Fx extends React.Component{
     super(props);
     this.switching = this.switching.bind(this);
   }
+  // Toogle the Audio track list
   switching(){
     var fxChoice = document.getElementById('fxSwitch');
-    fxChoice.addEventListener('change',()=>{
-      if (fxChoice.checked) {
-        this.props.setFx(fx2);
-        console.log('Checked stuff');
-        //console.log(fx2);
-      }
-    else{
-      console.log('notChecked stuff');
-      //console.log(fx1);
-      this.props.setFx(fx1);
-    }
-  });
+      // FX switch is checked load first sound list
+      if (fxChoice.checked) { this.props.setFx(fx1); }
+      // FX switch is unchecked load second sound list
+      else{ this.props.setFx(fx2); }
   }
   render(){
-
-    //document.addEventListener('change', this.switching );
     return(
       <div id='fx'>
         <label for='fxSwitch' className='switch'  >
@@ -268,11 +371,13 @@ export class Drums extends React.Component{
   constructor(props){
     super(props);
     this.state={
-                trackTitle:'',
-                fxBatch: fx1
+                trackTitle:''
               };
     this.setDisplay = this.setDisplay.bind(this);
     this.setFx = this.setFx.bind(this);
+    this.setMute = this.setMute.bind(this);
+    this.passVolume = this.passVolume.bind(this);
+    this.buttonRef = React.createRef();
   }
   // Sets tack title display value
   setDisplay(val){
@@ -280,24 +385,32 @@ export class Drums extends React.Component{
   }
   // Sets the batch of sound to be played
   setFx(val){
-    this.setState({fxBatch: val});
+    this.buttonRef.current.setTracks(val); // Passing track value to Button Component
+  }
+  // Set the muted value for all audio elements
+  setMute(val){
+    this.buttonRef.current.muteAudio(val); // Passing mute value to Button Component
+  }
+  passVolume(val){
+    this.buttonRef.current.setVolume(val);
   }
 
   render(){
     //console.log(this.state.fxBatch);
-    var buttonProps = {setDisplay: this.setDisplay, tracks: {...this.state.fxBatch}};
+    var buttonProps = {setDisplay: this.setDisplay };
     return(
-      <div className="player-container">{/* Container with player elemants */}
+      <div className="player-container">{/* Container with player elements */}
         <div id='logo'>{/* Header with logo */}
           <i class="fa fa-grav" aria-hidden="true"></i>
-          eFonic
+          <a href='https://github.com/nhope123/drums' tabIndex='0' target='_blank' rel="noopener noreferrer" title='Github Repository'>eFonic</a>
         </div>
         <div id='display'>{this.state.trackTitle}</div> {/* Audio description Display */}
-        <Buttons {...buttonProps}/> {/* Button Component emplimenting the button functionality */}
-        <Volume />{/* Volume slider with functionality */}
-        <Power />{/* Power toggle switch for audio activation and deactivation */ }
-        <Fx setFx={this.setFx}/> {/* Select type of audio */}
-        <div id='credits'><a href='https://github.com/nhope123/drums' tabIndex='0'> by Nial</a></div>
+        <Buttons {...buttonProps} ref={this.buttonRef}/> {/* Button Component emplimenting the button functionality */}
+        <Volume passVolume={this.passVolume} />{/* Volume slider with functionality */}
+        <div id='switches' >
+          <Power setMute={this.setMute}/>{/* Power toggle switch for audio activation and deactivation */ }
+          <Fx setFx={this.setFx}/> {/* Select type of audio */}
+        </div>
       </div>);
   }
 }
