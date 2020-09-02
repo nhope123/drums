@@ -66,7 +66,7 @@ class Buttons extends React.Component{
                     zSrc: val.zAudio, xSrc: val.xAudio, cSrc: val.cAudio
     });
     // Reload all audio buttons when new track are loaded
-    idList.map((item) => { document.getElementById(item).load(); return 1;});
+    //idList.map((item) => { document.getElementById(item).load().catch(err => {}); return 1;});
   }
   // set the volume of all audio elements
   setVolume(val){
@@ -90,6 +90,7 @@ class Buttons extends React.Component{
   // playAudio function plays selected audio and pass the track title for display
   playAudio(event){
     var eventValue; // Value from the button pressed
+
     // Button selected by clicking
     if (event.type === 'click') {
       eventValue= event.target.value;
@@ -323,7 +324,10 @@ class Power extends React.Component{
   switchPower(){
     var powerChoice = document.getElementById('mute');
       // Power switch is checked mute all audio
-      if (powerChoice.checked) { this.props.setMute(false); }
+      if (powerChoice.checked) {
+         this.props.setMute(false);
+
+       }
       // Power switch unchecked unmute all audio
       else{ this.props.setMute(true); }
   }
@@ -332,9 +336,9 @@ class Power extends React.Component{
       <div id='power'>
         <label className='switch' for='mute' >
           <input type='checkbox' id='mute'/>
-          <span className='slider round' onClick={this.switchPower} ></span>
+          <span className='slider round' onClick={this.switchPower} >Off</span>
         </label>
-        <div> Power</div>
+        <div>Mute</div>
       </div>
     );
   }
