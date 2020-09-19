@@ -8,7 +8,6 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 @media screen and (max-width: 450px) {
   .player-container{
@@ -97,7 +96,7 @@ body {
   border-radius: 15px;
   /* background-color: #101010; /* #020202;*/
   background: #2E2E2E;
-  background: -moz-radial-gradient(center, #2E2E2E 0%, #101010 100%);
+  /*background: -moz-radial-gradient(center, #2E2E2E 0%, #101010 100%);*/
   background: -webkit-radial-gradient(center, #2E2E2E 0%, #101010 100%);
   background: radial-gradient(ellipse at center, #2E2E2E 0%, #101010 100%);
 }
