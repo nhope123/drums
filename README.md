@@ -1,6 +1,6 @@
 # efonic
 
-A Sound effect Drum machine
+An online sound effect Drum machine implementing audio selection, audio looping, volume control, playback title display, and sound effect switching. 
 
 This is the completed coding for [freeCodeCamp](https://www.freecodecamp.org) [Drum Machine](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-drum-machine) project.
 
